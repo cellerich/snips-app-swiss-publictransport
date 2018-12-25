@@ -1,7 +1,4 @@
 [global]
-units=metric
-language=de_DE
 
 [secret]
-tesla_username=
-tesla_password=
+home_station=
