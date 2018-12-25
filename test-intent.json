@@ -1,0 +1,84 @@
+[{
+        "id": "6be0d349-f9c7-498a-ba3e-5c266cb31ebc",
+        "input": "wie heisst mein fahrzeug",
+        "intent": {
+            "intentName": "cellerich:tesla:car_name",
+            "probability": 1.0
+        },
+        "slots": [],
+        "sessionId": "1ae57c10-e1f5-406d-8451-69636471ea17"
+    },
+    {
+        "sessionId": "3e7a807c-3dbb-4aa6-9d64-b1632114b1be",
+        "customData": null,
+        "siteId": "default",
+        "input": "wie heisst mein fahrzeug",
+        "asrTokens": [
+            [{
+                "value": "wie",
+                "confidence": 1.0,
+                "range_start": 0,
+                "range_end": 3,
+                "time": {
+                    "start": 0.0,
+                    "end": 0.45
+                }
+            }, {
+                "value": "heisst",
+                "confidence": 1.0,
+                "range_start": 4,
+                "range_end": 8,
+                "time": {
+                    "start": 0.45,
+                    "end": 0.63
+                }
+            }, {
+                "value": "mein",
+                "confidence": 1.0,
+                "range_start": 9,
+                "range_end": 12,
+                "time": {
+                    "start": 0.63,
+                    "end": 0.81
+                }
+            }, {
+                "value": "fahrzeug",
+                "confidence": 0.8657811,
+                "range_start": 13,
+                "range_end": 16,
+                "time": {
+                    "start": 0.81,
+                    "end": 0.8280287
+                }
+            }]
+        ],
+        "intent": {
+            "intentName": "cellerich:tesla:car_name",
+            "probability": 0.99135673
+        },
+        "slots": []
+    },
+    {
+        "id": "6be0d349-f9c7-498a-ba3e-5c266cb31ebc",
+        "input": "wie heisst mein fahrzeug",
+        "intent": {
+            "intentName": "",
+            "probability": 1.0
+        },
+        "slots": [{
+            "confidence": 1.0,
+            "rawValue": "bitcoin",
+            "value": {
+                "kind": "Custom",
+                "value": "bitcoin"
+            },
+            "range": {
+                "start": 12,
+                "end": 19
+            },
+            "entity": "cryptocoin",
+            "slotName": "source"
+        }],
+        "sessionId": "1ae57c10-e1f5-406d-8451-69636471ea17"
+    }
+]
