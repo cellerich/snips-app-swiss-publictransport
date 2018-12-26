@@ -76,11 +76,11 @@ class Swiss_Publictransport_app(object):
     # --> Master callback function, triggered everytime an intent is recognized
     def master_intent_callback(self,hermes, intent_message):
         coming_intent = intent_message.intent.intent_name
-        if coming_intent == 'train_schedule_to':
+        if coming_intent == 'cellerich:train_schedule_to':
             self.train_schedule_to(hermes, intent_message)
-        if coming_intent == 'train_schedule_from_to':
+        if coming_intent == 'cellerich:train_schedule_from_to':
             self.train_schedule_from_to(hermes, intent_message)
-        if coming_intent == 'station_timetable':
+        if coming_intent == 'cellerich:station_timetable':
             self.station_timetable(hermes, intent_message)
 
 

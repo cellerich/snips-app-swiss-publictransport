@@ -1,84 +1,100 @@
-[{
-        "id": "6be0d349-f9c7-498a-ba3e-5c266cb31ebc",
-        "input": "wie heisst mein fahrzeug",
-        "intent": {
-            "intentName": "cellerich:tesla:car_name",
-            "probability": 1.0
+{
+    "sessionId": "b6c489e2-a2d9-4267-916b-1b3a548df717",
+    "customData": null,
+    "siteId": "default",
+    "input": "wann fährt der nächste zug nach werden",
+    "asrTokens": [
+      [
+        {
+          "value": "wann",
+          "confidence": 1,
+          "range_start": 0,
+          "range_end": 4,
+          "time": {
+            "start": 0,
+            "end": 1.17
+          }
         },
-        "slots": [],
-        "sessionId": "1ae57c10-e1f5-406d-8451-69636471ea17"
+        {
+          "value": "fährt",
+          "confidence": 1,
+          "range_start": 5,
+          "range_end": 10,
+          "time": {
+            "start": 1.17,
+            "end": 1.4399999
+          }
+        },
+        {
+          "value": "der",
+          "confidence": 0.935128,
+          "range_start": 11,
+          "range_end": 14,
+          "time": {
+            "start": 1.4399999,
+            "end": 1.4477845
+          }
+        },
+        {
+          "value": "nächste",
+          "confidence": 1,
+          "range_start": 15,
+          "range_end": 22,
+          "time": {
+            "start": 1.4477845,
+            "end": 1.9499999
+          }
+        },
+        {
+          "value": "zug",
+          "confidence": 1,
+          "range_start": 23,
+          "range_end": 26,
+          "time": {
+            "start": 1.9499999,
+            "end": 2.1299999
+          }
+        },
+        {
+          "value": "nach",
+          "confidence": 1,
+          "range_start": 27,
+          "range_end": 31,
+          "time": {
+            "start": 2.1299999,
+            "end": 2.31
+          }
+        },
+        {
+          "value": "werden",
+          "confidence": 0.59083843,
+          "range_start": 32,
+          "range_end": 38,
+          "time": {
+            "start": 2.31,
+            "end": 3.36
+          }
+        }
+      ]
+    ],
+    "intent": {
+      "intentName": "cellerich:train_schedule_to",
+      "probability": 0.86790895
     },
-    {
-        "sessionId": "3e7a807c-3dbb-4aa6-9d64-b1632114b1be",
-        "customData": null,
-        "siteId": "default",
-        "input": "wie heisst mein fahrzeug",
-        "asrTokens": [
-            [{
-                "value": "wie",
-                "confidence": 1.0,
-                "range_start": 0,
-                "range_end": 3,
-                "time": {
-                    "start": 0.0,
-                    "end": 0.45
-                }
-            }, {
-                "value": "heisst",
-                "confidence": 1.0,
-                "range_start": 4,
-                "range_end": 8,
-                "time": {
-                    "start": 0.45,
-                    "end": 0.63
-                }
-            }, {
-                "value": "mein",
-                "confidence": 1.0,
-                "range_start": 9,
-                "range_end": 12,
-                "time": {
-                    "start": 0.63,
-                    "end": 0.81
-                }
-            }, {
-                "value": "fahrzeug",
-                "confidence": 0.8657811,
-                "range_start": 13,
-                "range_end": 16,
-                "time": {
-                    "start": 0.81,
-                    "end": 0.8280287
-                }
-            }]
-        ],
-        "intent": {
-            "intentName": "cellerich:tesla:car_name",
-            "probability": 0.99135673
+    "slots": [
+      {
+        "confidence": 1,
+        "rawValue": "zug",
+        "value": {
+          "kind": "Custom",
+          "value": "Bahn"
         },
-        "slots": []
-    },
-    {
-        "id": "6be0d349-f9c7-498a-ba3e-5c266cb31ebc",
-        "input": "wie heisst mein fahrzeug",
-        "intent": {
-            "intentName": "",
-            "probability": 1.0
+        "range": {
+          "start": 23,
+          "end": 26
         },
-        "slots": [{
-            "confidence": 1.0,
-            "rawValue": "bitcoin",
-            "value": {
-                "kind": "Custom",
-                "value": "bitcoin"
-            },
-            "range": {
-                "start": 12,
-                "end": 19
-            },
-            "entity": "cryptocoin",
-            "slotName": "source"
-        }],
-        "sessionId": "1ae57c10-e1f5-406d-8451-69636471ea17"
-    }
-]
+        "entity": "publictransport_type",
+        "slotName": "transport_type"
+      }
+    ]
+  }
