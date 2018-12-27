@@ -62,7 +62,7 @@ class Swiss_Publictransport_app(object):
     def train_schedule_to(self, hermes, intent_message):
         # terminate the session first if not continue
         self.parse_slots(intent_message)
-        intent = 'Absicht: {} nach {}'.format(self.transport, self.destinantion)
+        intent = 'Absicht erhalten: {} nach {}'.format(self.transport, self.destinantion)
         hermes.publish_end_session(intent_message.session_id, intent.decode('utf8'))
         
         # action code goes here...
@@ -76,7 +76,7 @@ class Swiss_Publictransport_app(object):
     def train_schedule_from_to(self, hermes, intent_message):
         # terminate the session first if not continue
         self.parse_slots(intent_message)
-        intent = 'Absicht: {} von {} nach {}'.format(self.transport, self.origin, self.destinantion)
+        intent = 'Absicht erhalten: {} von {} nach {}'.format(self.transport, self.origin, self.destinantion)
         hermes.publish_end_session(intent_message.session_id, intent.decode('utf8'))
         
         # action code goes here...
@@ -90,7 +90,7 @@ class Swiss_Publictransport_app(object):
     def station_timetable(self, hermes, intent_message):
         # terminate the session first if not continue
         self.parse_slots(intent_message)
-        intent = 'Absicht: {} '.format(self.transport)
+        intent = 'Absicht erhalten: {} '.format(self.transport)
         hermes.publish_end_session(intent_message.session_id, intent.decode('utf8'))
         
         # action code goes here...
