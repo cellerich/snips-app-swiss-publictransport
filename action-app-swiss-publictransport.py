@@ -21,9 +21,13 @@ MQTT_ADDR = "{}:{}".format(MQTT_IP_ADDR, str(MQTT_PORT))
 class Swiss_Publictransport_app(object):
     """Class used to wrap action code with mqtt connection
         
-        Tesla appp
+        Swiss Publictransport app
         Dispatch the intents to the corresponding actions
     """
+
+    transport = ''
+    origin = ''
+    destinantion = ''
 
     def __init__(self):
         # get the configuration if needed
@@ -31,7 +35,6 @@ class Swiss_Publictransport_app(object):
             self.config = SnipsConfigParser.read_configuration_file(CONFIG_INI)
             logging.debug('read the config file')
             print 'Config readed'
-            print self.config
             print MQTT_ADDR
         except :
             self.config = None
@@ -39,43 +42,68 @@ class Swiss_Publictransport_app(object):
 
         # start listening to MQTT
         self.start_blocking()
-        
-    # --> Sub callback function, one per intent
 
+    def parse_slots(self,intent_message):
+
+        # Parse the query slots, and fetch the weather forecast from Open Weather Map's API
+
+        for (slot_value, slot) in intent_message.slots.items():
+            if slot_value == 'transport_type':
+                self.transport = slot[0].slot_value.value.value.encode('utf8')
+            if slot_value == 'from_station':
+                self.origin = slot[0].slot_value.value.value.encode('utf8')
+            if slot_value == 'to_station':
+                self.destinantion = slot[0].slot_value.value.value.encode('utf8')
+
+
+
+    # --> Sub callback function, one per intent
     #===train_schedule_to intent action ==========================================
     def train_schedule_to(self, hermes, intent_message):
         # terminate the session first if not continue
-        hermes.publish_end_session(intent_message.session_id, "Absicht: Zug nach")
+        self.parse_slots(intent_message)
+        intent = 'Absicht: {} nach {}'.format(self.transport, self.destinantion)
+        hermes.publish_end_session(intent_message.session_id, intent.decode('utf8'))
         
         # action code goes here...
-        print '[Received] intent: {}'.format(intent_message.intent.intent_name)
-        print self.config
+        print '[Received] {}'.format(intent)
 
         # if need to speak the execution result by tts
-        hermes.publish_start_session_notification(intent_message.site_id, "Session Notification", "")
+        #hermes.publish_start_session_notification(intent_message.site_id, "Noch eine Schlussbemerkung - eins", "")
 
 
     #===train_schedule_from_to intent action ==========================================
     def train_schedule_from_to(self, hermes, intent_message):
         # terminate the session first if not continue
-        hermes.publish_end_session(intent_message.session_id, "Intent - Zug von - nach")
+        self.parse_slots(intent_message)
+        intent = 'Absicht: {} von {} nach {}'.format(self.transport, self.origin, self.destinantion)
+        hermes.publish_end_session(intent_message.session_id, intent.decode('utf8'))
         
         # action code goes here...
-        print '[Received] intent: {}'.format(intent_message.intent.intent_name)
+        print '[Received] {}'.format(intent)
+
+        # if need to speak the execution result by tts
+        #hermes.publish_start_session_notification(intent_message.site_id, "Noch eine Schlussbemerkung - eins", "")
 
 
     #===station_timetable intent action ==========================================
     def station_timetable(self, hermes, intent_message):
         # terminate the session first if not continue
-        hermes.publish_end_session(intent_message.session_id, "Intent - nächster Zug")
+        self.parse_slots(intent_message)
+        intent = 'Absicht: {} '.format(self.transport)
+        hermes.publish_end_session(intent_message.session_id, intent.decode('utf8'))
         
         # action code goes here...
-        print '[Received] intent: {}'.format(intent_message.intent.intent_name)
+        print '[Received] {}'.format(intent)
+
+        # if need to speak the execution result by tts
+        #hermes.publish_start_session_notification(intent_message.site_id, "Noch eine Schlussbemerkung - eins", "")
 
 
     # --> Master callback function, triggered everytime an intent is recognized
     def master_intent_callback(self,hermes, intent_message):
         coming_intent = intent_message.intent.intent_name
+        print coming_intent
         if coming_intent == 'cellerich:train_schedule_to':
             self.train_schedule_to(hermes, intent_message)
         if coming_intent == 'cellerich:train_schedule_from_to':
