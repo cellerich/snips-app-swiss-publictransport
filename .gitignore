@@ -1,0 +1,3 @@
+*.json
+.vscode
+__pychache__/*

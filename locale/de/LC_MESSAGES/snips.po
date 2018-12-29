@@ -1,0 +1,84 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR ORGANIZATION
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2018-12-29 21:42+0100\n"
+"PO-Revision-Date: 2018-12-29 22:21+0100\n"
+"Last-Translator: Cello Spring <cello@cellerich.ch>\n"
+"Language-Team: \n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
+"X-Generator: Poedit 2.2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: __init__.py:49
+msgid "%H hours %M minutes "
+msgstr "%H Stunden %M Minuten "
+
+#: __init__.py:75
+msgid ""
+"The next connection from {origin} is number {transport} and leaves at {} "
+"from platform {platform} towards {destination}. "
+msgstr ""
+"Die nächste Verbindung von {origin} ist der {transport} und fährt um {} ab "
+"Gleis {platform} nach {destination}. "
+
+#: __init__.py:77
+msgid "There are {stops} stops before the final destination. "
+msgstr "Er hält an {stops} Haltestellen. "
+
+#: __init__.py:80
+msgid "Other connections are: "
+msgstr "Weitere Verbindungen sind: "
+
+#: __init__.py:82
+msgid ""
+"number {transport} towards {destination} leaving {} from platform {platform} "
+"with {stops} stops; "
+msgstr ""
+"Der {transport} nach {destination} um {}, ab Gleis {platform} mit {stops} "
+"Stopps, "
+
+#: __init__.py:86
+msgid ""
+"{transport} towards {destination} leaving {} from platform {platform} with "
+"{stops} stops and "
+msgstr ""
+"der {transport} nach {destination} um {}, ab Gleis {platform} mit {stops} "
+"Stopps und "
+
+#: __init__.py:90
+msgid ""
+"{transport} towards {destination} leaving {} from platform {platform} with "
+"{stops} stops."
+msgstr ""
+"der {transport} nach {destination} um {}, ab Gleis {platform} mit {stops} "
+"Stopps."
+
+#: __init__.py:126
+msgid "Your next connection from {from} to {to} leaves at {}."
+msgstr "Die nächste Verbindung von {from} nach {to} fährt um {}. "
+
+#: __init__.py:130
+msgid "It has the number {first_transport} on Platform {platform}."
+msgstr "Sie hat die Nummer {first_transport} auf Gleis {platform}. "
+
+#: __init__.py:134
+msgid "The journey takes {}, you will arrive in Lausanne at {}."
+msgstr "Die Fahrt dauert {}, die Ankunft in {to} ist um {}. "
+
+#: __init__.py:138
+msgid "There are {transfer_count} transfers:"
+msgstr "Du musst {transfer_count} mal umsteigen. und zwar: "
+
+#: __init__.py:142
+msgid "- in {station} - {}, number {transport} on platform {platform}."
+msgstr ""
+"- in {station} Weiterfahrt um {}, mit Nummer {transport} auf Gleis "
+"{platform}. "

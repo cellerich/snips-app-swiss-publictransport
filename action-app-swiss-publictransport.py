@@ -10,6 +10,8 @@ import io
 import logging
 
 CONFIG_INI = "config.ini"
+_LOGGER = logging.getLogger(__name__)
+
 
 # If this skill is supposed to run on the satellite,
 # please get this mqtt connection info from <config.ini>
@@ -33,12 +35,11 @@ class Swiss_Publictransport_app(object):
         # get the configuration if needed
         try:
             self.config = SnipsConfigParser.read_configuration_file(CONFIG_INI)
-            logging.debug('read the config file')
-            print 'Config readed'
-            print MQTT_ADDR
+            _LOGGER.debug('reading the config file {}', self.config)
+            _LOGGER.debug('MQTT address is {}', MQTT_ADDR)
         except :
             self.config = None
-            print 'Error config'
+            _LOGGER.error('not able to read config file!')
 
         # start listening to MQTT
         self.start_blocking()
@@ -66,7 +67,7 @@ class Swiss_Publictransport_app(object):
         hermes.publish_end_session(intent_message.session_id, intent.decode('utf8'))
         
         # action code goes here...
-        print '[Received] {}'.format(intent)
+        _LOGGER.debug('[Received] {}', intent)
 
         # if need to speak the execution result by tts
         #hermes.publish_start_session_notification(intent_message.site_id, "Noch eine Schlussbemerkung - eins", "")
@@ -80,7 +81,7 @@ class Swiss_Publictransport_app(object):
         hermes.publish_end_session(intent_message.session_id, intent.decode('utf8'))
         
         # action code goes here...
-        print '[Received] {}'.format(intent)
+        _LOGGER.debug('[Received] {}', intent)
 
         # if need to speak the execution result by tts
         #hermes.publish_start_session_notification(intent_message.site_id, "Noch eine Schlussbemerkung - eins", "")
@@ -94,7 +95,7 @@ class Swiss_Publictransport_app(object):
         hermes.publish_end_session(intent_message.session_id, intent.decode('utf8'))
         
         # action code goes here...
-        print '[Received] {}'.format(intent)
+        _LOGGER.debug('[Received] {}', intent)
 
         # if need to speak the execution result by tts
         #hermes.publish_start_session_notification(intent_message.site_id, "Noch eine Schlussbemerkung - eins", "")
@@ -103,7 +104,7 @@ class Swiss_Publictransport_app(object):
     # --> Master callback function, triggered everytime an intent is recognized
     def master_intent_callback(self,hermes, intent_message):
         coming_intent = intent_message.intent.intent_name
-        print coming_intent
+        _LOGGER.debug('Intent receive: {}',coming_intent)
         if coming_intent == 'cellerich:train_schedule_to':
             self.train_schedule_to(hermes, intent_message)
         if coming_intent == 'cellerich:train_schedule_from_to':
