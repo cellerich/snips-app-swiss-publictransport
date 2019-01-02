@@ -1,3 +1,6 @@
+#!/usr/bin/env python2
+# -*- coding: utf-8 -*-
+
 """
 Copyright (c) 2019 Cello Spring <cello@cellerich.ch>
 https://www.cellerich.ch
