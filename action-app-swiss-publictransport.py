@@ -8,10 +8,14 @@ from hermes_python.ontology import *
 import swiss_transport_info as STI
 
 import io
+import sys
 import logging
 
 CONFIG_INI = "config.ini"
+logging.basicConfig()
+
 _LOGGER = logging.getLogger(__name__)
+_LOGGER.setLevel(logging.DEBUG)
 
 
 # If this skill is supposed to run on the satellite,
@@ -39,18 +43,41 @@ class Swiss_Publictransport_app(object):
         - initialize our API and Multilanguage Text handler class with 
           correct language 
         """
+        # # DELETE later ========================================================
+        # # Create logger
+        logger = logging.getLogger()
+
+        logger.setLevel(logging.ERROR)
+
+        # # Create STDERR handler
+        # handler = logging.StreamHandler(sys.stderr)
+        # # ch.setLevel(logging.DEBUG)
+
+        # # Create formatter and add it to the handler
+        # formatter = logging.Formatter('%(name)s - %(levelname)s - %(message)s')
+        # handler.setFormatter(formatter)
+
+        # # Set STDERR handler as the only handler 
+        # logger.handlers = [handler]
+        # # DELETE later ========================================================
+
+
         # get the configuration if needed
         try:
             self.config = SnipsConfigParser.read_configuration_file(CONFIG_INI)
-            _LOGGER.debug("reading the config file {}", self.config)
-            _LOGGER.debug("MQTT address is {}", MQTT_ADDR)
+            _LOGGER.debug(u"reading the config file {}".format(self.config))
+            _LOGGER.debug(u"MQTT address is {}".format(MQTT_ADDR))
         except:
             self.config = None
-            _LOGGER.error("not able to read config file!")
+            _LOGGER.error(u"not able to read config file!")
+
+        print(self.config)
+        print(self.config['secret']['language'])
+
 
         # get the API and Multilanguage Text handler class
         try:
-            self.sti = STI.SwissTransportInfo(self.config["language"])
+            self.sti = STI.SwissTransportInfo(self.config["secret"]["language"])
         except Exception as e:
             _LOGGER.error(e)
 
@@ -62,7 +89,7 @@ class Swiss_Publictransport_app(object):
         """
 
         # default origin is our home station from config
-        self.origin = self.config["home_station"]
+        self.origin = self.config["secret"]["home_station"]
         # Parse the query slots
         for (slot_value, slot) in intent_message.slots.items():
             if slot_value == "transport_type":
@@ -82,15 +109,18 @@ class Swiss_Publictransport_app(object):
         """
 
         # log what we got
-        _LOGGER.debug("[Received] {}", intent)
+        _LOGGER.debug(u"[Received] {}".format(intent_message.intent))
 
-        # get the slots from intent
+        # get the slots from intent_message.intent
         self._parse_slots(intent_message)
         # call our API
-        text_to_speak = self.sti.get_connection(self.origin, self.destinantion)
+        try:
+            text_to_speak = self.sti.get_connection(self.origin, self.destinantion)
+        except Exception as e:
+            text_to_speak = unicode(str(e), "utf-8")
         # terminate the session first if not continue
         hermes.publish_end_session(
-            intent_message.session_id, text_to_speak.decode("utf8")
+            intent_message.session_id, text_to_speak
         )
 
     # ===train_schedule_from_to intent action =================================
@@ -99,15 +129,19 @@ class Swiss_Publictransport_app(object):
         """
 
         # log what we got
-        _LOGGER.debug("[Received] {}", intent)
+        _LOGGER.debug(u"[Received] {}".format(intent_message.intent))
 
         # get the slots from intent
         self._parse_slots(intent_message)
         # call our API
-        text_to_speak = self.sti.get_connection(self.origin, self.destinantion)
+        try:
+            text_to_speak = self.sti.get_connection(self.origin, self.destinantion)
+        except Exception as e:
+            text_to_speak = unicode(str(e), "utf-8")
+
         # terminate the session first if not continue
         hermes.publish_end_session(
-            intent_message.session_id, text_to_speak.decode("utf8")
+            intent_message.session_id, text_to_speak
         )
 
     # ===station_timetable intent action ======================================
@@ -116,15 +150,19 @@ class Swiss_Publictransport_app(object):
         """
 
         # log what we got
-        _LOGGER.debug("[Received] {}", intent)
+        _LOGGER.debug(u"[Received] {}".format(intent_message.intent))
 
         # get the slots from intent
         self._parse_slots(intent_message)
         # call our API
-        text_to_speak = self.sti.get_station_board(self.origin)
+        try:
+            text_to_speak = self.sti.get_station_board(self.origin)
+        except Exception as e:
+            text_to_speak = unicode(str(e), "utf-8")
+
         # terminate the session first if not continue
         hermes.publish_end_session(
-            intent_message.session_id, text_to_speak.decode("utf8")
+            intent_message.session_id, text_to_speak
         )
 
     # -------------------------------------------------------------------------
@@ -133,7 +171,7 @@ class Swiss_Publictransport_app(object):
 
     def master_intent_callback(self, hermes, intent_message):
         coming_intent = intent_message.intent.intent_name
-        _LOGGER.debug("Intent received: {}", coming_intent)
+        _LOGGER.debug(u"Intent received: {}".format(coming_intent))
         if coming_intent == "cellerich:train_schedule_to":
             self.train_schedule_to(hermes, intent_message)
         if coming_intent == "cellerich:train_schedule_from_to":

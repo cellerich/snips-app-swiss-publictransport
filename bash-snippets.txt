@@ -1,0 +1,4 @@
+sam install skills --git https://github.com/cellerich/snips-app-swiss-publictransport.git
+
+find . -name '*.sh' | xargs git update-index --chmod=+x
+
