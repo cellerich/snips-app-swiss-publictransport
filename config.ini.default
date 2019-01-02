@@ -1,4 +1,5 @@
 [global]
 
 [secret]
-home_station=
+home_station=Bern
+language=de
