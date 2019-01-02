@@ -1,0 +1,93 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR ORGANIZATION
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2019-01-02 10:38+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=cp1252\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
+
+
+#: __init__.py:38
+msgid "Language \"{}\" is not available"
+msgstr ""
+
+#: __init__.py:55 __init__.py:106
+msgid "Sorry, I cannot load the translations for the language {}"
+msgstr ""
+
+#: __init__.py:67 __init__.py:118
+msgid "Sorry! I received some invalid data, please try again with another station"
+msgstr ""
+
+#: __init__.py:74 __init__.py:125
+msgid "Sorry! I dont have a connection to the Swiss Transport Infos at the moment"
+msgstr ""
+
+#: __init__.py:78 __init__.py:129
+msgid "Please try again later"
+msgstr ""
+
+#: __init__.py:83 __init__.py:134
+msgid "Sorry! I have trouble understanding the data I received"
+msgstr ""
+
+#: __init__.py:85 __init__.py:136
+msgid "You might have a talk with the programmer of this App"
+msgstr ""
+
+#: __init__.py:191
+msgid "%H hours %M minutes"
+msgstr ""
+
+#: __init__.py:196
+msgid "on platform {}"
+msgstr ""
+
+#: __init__.py:229
+msgid "The next connection from {origin} is {transport} and leaves at {departure} {platform} towards {destination}"
+msgstr ""
+
+#: __init__.py:233
+msgid "There are {stops} stops before the final destination"
+msgstr ""
+
+#: __init__.py:238
+msgid "Other connections are"
+msgstr ""
+
+#: __init__.py:241 __init__.py:249 __init__.py:257
+msgid "{transport} towards {destination} leaving {departure} {platform} with {stops} stops"
+msgstr ""
+
+#: __init__.py:252
+msgid "and"
+msgstr ""
+
+#: __init__.py:313
+msgid "Your next connection from {from} to {to} leaves at {departure}"
+msgstr ""
+
+#: __init__.py:319
+msgid "It has the number {first_transport} {platform}"
+msgstr ""
+
+#: __init__.py:325
+msgid "The journey takes {duration}, you will arrive in {to} at {arrival}"
+msgstr ""
+
+#: __init__.py:332
+msgid "There are {transfer_count} transfers"
+msgstr ""
+
+#: __init__.py:338
+msgid "- in {station}: {departure}, {transport} {platform}"
+msgstr ""
+

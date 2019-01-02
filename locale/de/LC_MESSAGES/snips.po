@@ -5,80 +5,106 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-12-29 21:42+0100\n"
-"PO-Revision-Date: 2018-12-29 22:21+0100\n"
-"Last-Translator: Cello Spring <cello@cellerich.ch>\n"
+"POT-Creation-Date: 2019-01-02 10:38+0100\n"
+"PO-Revision-Date: 2019-01-02 15:36+0100\n"
 "Language-Team: \n"
-"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: pygettext.py 1.5\n"
 "X-Generator: Poedit 2.2\n"
+"Last-Translator: Cello Spring <cello@cellerich.ch>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: de\n"
 
-#: __init__.py:49
-msgid "%H hours %M minutes "
+#: __init__.py:38
+msgid "Language \"{}\" is not available"
+msgstr "Die Sprache \"{}\" ist nicht verfügbar"
+
+#: __init__.py:55 __init__.py:106
+msgid "Sorry, I cannot load the translations for the language {}"
+msgstr ""
+"Es tut mir leid, aber ich kann die Übersetzungen für die Sprache {} nicht "
+"laden"
+
+#: __init__.py:67 __init__.py:118
+msgid ""
+"Sorry! I received some invalid data, please try again with another station"
+msgstr ""
+"Tut mir Leid! Ich habe einige ungültige Daten erhalten, bitte versuchen "
+"Sie es noch einmal mit einer anderen Station"
+
+#: __init__.py:74 __init__.py:125
+msgid ""
+"Sorry! I dont have a connection to the Swiss Transport Infos at the moment"
+msgstr "Tut mir Leid! Ich habe derzeit keine Verbindung zum Fahrplan"
+
+#: __init__.py:78 __init__.py:129
+msgid "Please try again later"
+msgstr "Bitte versuche es später noch mal"
+
+#: __init__.py:83 __init__.py:134
+msgid "Sorry! I have trouble understanding the data I received"
+msgstr ""
+"Tut mir Leid! Ich habe Schwierigkeiten, die Daten zu verstehen, die ich "
+"erhalten habe"
+
+#: __init__.py:85 __init__.py:136
+msgid "You might have a talk with the programmer of this App"
+msgstr "Du solltest das Gespräch mit dem Programmierer dieser App suchen"
+
+#: __init__.py:191
+msgid "%H hours %M minutes"
 msgstr "%H Stunden %M Minuten "
 
-#: __init__.py:75
+#: __init__.py:196
+msgid "on platform {}"
+msgstr "auf Gleis {}"
+
+#: __init__.py:229
 msgid ""
-"The next connection from {origin} is number {transport} and leaves at {} "
-"from platform {platform} towards {destination}. "
+"The next connection from {origin} is {transport} and leaves at {departure} "
+"{platform} towards {destination}"
 msgstr ""
-"Die nächste Verbindung von {origin} ist der {transport} und fährt um {} ab "
-"Gleis {platform} nach {destination}. "
+"Die nächste Verbindung von {origin} ist der {transport} und fährt um "
+"{departure} {platform} nach {destination}"
 
-#: __init__.py:77
-msgid "There are {stops} stops before the final destination. "
-msgstr "Er hält an {stops} Haltestellen. "
+#: __init__.py:233
+msgid "There are {stops} stops before the final destination"
+msgstr "Er hält an {stops} Haltestellen"
 
-#: __init__.py:80
-msgid "Other connections are: "
-msgstr "Weitere Verbindungen sind: "
+#: __init__.py:238
+msgid "Other connections are"
+msgstr "Weitere Verbindungen sind"
 
-#: __init__.py:82
+#: __init__.py:241 __init__.py:249 __init__.py:257
 msgid ""
-"number {transport} towards {destination} leaving {} from platform {platform} "
-"with {stops} stops; "
+"{transport} towards {destination} leaving {departure} {platform} with "
+"{stops} stops"
 msgstr ""
-"Der {transport} nach {destination} um {}, ab Gleis {platform} mit {stops} "
-"Stopps, "
+"{transport} nach {destination} um {departure} {platform} mit {stops} Stops"
 
-#: __init__.py:86
-msgid ""
-"{transport} towards {destination} leaving {} from platform {platform} with "
-"{stops} stops and "
+#: __init__.py:252
+msgid "and"
+msgstr "und"
+
+#: __init__.py:313
+msgid "Your next connection from {from} to {to} leaves at {departure}"
+msgstr "Die nächste Verbindung von {from} nach {to} fährt um {departure}"
+
+#: __init__.py:319
+msgid "It has the number {first_transport} {platform}"
+msgstr "Sie hat die Nummer {first_transport} {platform}"
+
+#: __init__.py:325
+msgid "The journey takes {duration}, you will arrive in {to} at {arrival}"
+msgstr "Die Fahrt dauert {duration}, die Ankunft in {to} ist um {arrival}"
+
+#: __init__.py:332
+msgid "There are {transfer_count} transfers"
+msgstr "Du musst {transfer_count} mal umsteigen"
+
+#: __init__.py:338
+msgid "- in {station}: {departure}, {transport} {platform}"
 msgstr ""
-"der {transport} nach {destination} um {}, ab Gleis {platform} mit {stops} "
-"Stopps und "
-
-#: __init__.py:90
-msgid ""
-"{transport} towards {destination} leaving {} from platform {platform} with "
-"{stops} stops."
-msgstr ""
-"der {transport} nach {destination} um {}, ab Gleis {platform} mit {stops} "
-"Stopps."
-
-#: __init__.py:126
-msgid "Your next connection from {from} to {to} leaves at {}."
-msgstr "Die nächste Verbindung von {from} nach {to} fährt um {}. "
-
-#: __init__.py:130
-msgid "It has the number {first_transport} on Platform {platform}."
-msgstr "Sie hat die Nummer {first_transport} auf Gleis {platform}. "
-
-#: __init__.py:134
-msgid "The journey takes {}, you will arrive in Lausanne at {}."
-msgstr "Die Fahrt dauert {}, die Ankunft in {to} ist um {}. "
-
-#: __init__.py:138
-msgid "There are {transfer_count} transfers:"
-msgstr "Du musst {transfer_count} mal umsteigen. und zwar: "
-
-#: __init__.py:142
-msgid "- in {station} - {}, number {transport} on platform {platform}."
-msgstr ""
-"- in {station} Weiterfahrt um {}, mit Nummer {transport} auf Gleis "
-"{platform}. "
+"- in {station}: Weiterfahrt um {departure}, mit {transport} {platform}"
