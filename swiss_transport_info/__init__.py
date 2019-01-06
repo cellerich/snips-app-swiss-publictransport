@@ -273,7 +273,7 @@ class _Data2TextML(object):
             )
             sentence += unicode(t_frag_4, "utf-8").format(**sb_data[3])
 
-            _LOGGER.debug(u"concatenated sentence: {}".format(sentence))
+            _LOGGER.debug(u"[Sentence] {}".format(sentence))
             return sentence
 
         except Exception as e:
@@ -310,7 +310,7 @@ class _Data2TextML(object):
                 transfer["platform"] = self._get_platform_string(transfer["platform"])
                 transfer["departure"] = self._get_time_string(transfer["departure"])
 
-            _LOGGER.debug(u"reformatted data: {}".format(data))
+            _LOGGER.debug(u"[Reformatted Data] {}".format(data))
 
         except Exception as e:
             _LOGGER.error(u"Error reformatting data: {}".format(e))
@@ -349,7 +349,7 @@ class _Data2TextML(object):
                 for transfer in data["transfers"][1:]:
                     sentence += unicode(t_frag_loop, "utf-8").format(**transfer)
 
-            _LOGGER.debug(u"concatenated sentence: {}".format(sentence))
+            _LOGGER.debug(u"[Sentence] {}".format(sentence))
             return sentence
 
         except Exception as e:

@@ -82,6 +82,10 @@ class Swiss_Publictransport_app(object):
             if slot_value == "to_station":
                 self.destinantion = slot[0].slot_value.value.value.encode("utf8")
 
+        _LOGGER.debug(u"[Slots] type: {}, from: {}, to: {}").format(
+            self.transport, self.origin, self.destinantion
+        )
+
     # -------------------------------------------------------------------------
     # --> Sub callback function, one per intent
     # -------------------------------------------------------------------------
@@ -90,9 +94,6 @@ class Swiss_Publictransport_app(object):
     def train_schedule_to(self, hermes, intent_message):
         """fulfill the intent 
         """
-
-        # log what we got
-        _LOGGER.debug(u"[Received] {}".format(intent_message.intent))
 
         # get the slots from intent_message.intent
         self._parse_slots(intent_message)
@@ -109,9 +110,6 @@ class Swiss_Publictransport_app(object):
         """fulfill the intent 
         """
 
-        # log what we got
-        _LOGGER.debug(u"[Received] {}".format(intent_message.intent))
-
         # get the slots from intent
         self._parse_slots(intent_message)
         # call our API
@@ -127,9 +125,6 @@ class Swiss_Publictransport_app(object):
     def station_timetable(self, hermes, intent_message):
         """fulfill the intent 
         """
-
-        # log what we got
-        _LOGGER.debug(u"[Received] {}".format(intent_message.intent))
 
         # get the slots from intent
         self._parse_slots(intent_message)
@@ -148,7 +143,7 @@ class Swiss_Publictransport_app(object):
 
     def master_intent_callback(self, hermes, intent_message):
         coming_intent = intent_message.intent.intent_name
-        _LOGGER.debug(u"Intent received: {}".format(coming_intent))
+        _LOGGER.debug(u"[Intent] {}".format(coming_intent))
         if coming_intent == "cellerich:train_schedule_to":
             self.train_schedule_to(hermes, intent_message)
         if coming_intent == "cellerich:train_schedule_from_to":
