@@ -82,9 +82,9 @@ class Swiss_Publictransport_app(object):
             if slot_value == "to_station":
                 self.destinantion = slot[0].slot_value.value.value.encode("utf8")
 
-        _LOGGER.debug(u"[Slots] type: {}, from: {}, to: {}").format(
+        _LOGGER.debug(u"[Slots] type: {}, from: {}, to: {}".format(
             self.transport, self.origin, self.destinantion
-        )
+        ))
 
     # -------------------------------------------------------------------------
     # --> Sub callback function, one per intent
