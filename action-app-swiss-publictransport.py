@@ -15,7 +15,7 @@ CONFIG_INI = "config.ini"
 logging.basicConfig()
 
 _LOGGER = logging.getLogger(__name__)
-_LOGGER.setLevel(logging.DEBUG)
+_LOGGER.setLevel(logging.ERROR)
 
 
 # If this skill is supposed to run on the satellite,
@@ -33,47 +33,26 @@ class Swiss_Publictransport_app(object):
     Dispatch the intents to the corresponding actions
     """
 
-    # transport = ""
-    # origin = ""
-    # destinantion = ""
-
     def __init__(self):
         """Initialize our app 
         - read the config file
         - initialize our API and Multilanguage Text handler class with 
           correct language 
         """
-        # # DELETE later ========================================================
-        # # Create logger
-        logger = logging.getLogger()
-
-        logger.setLevel(logging.ERROR)
-
-        # # Create STDERR handler
-        # handler = logging.StreamHandler(sys.stderr)
-        # # ch.setLevel(logging.DEBUG)
-
-        # # Create formatter and add it to the handler
-        # formatter = logging.Formatter('%(name)s - %(levelname)s - %(message)s')
-        # handler.setFormatter(formatter)
-
-        # # Set STDERR handler as the only handler 
-        # logger.handlers = [handler]
-        # # DELETE later ========================================================
-
 
         # get the configuration if needed
         try:
             self.config = SnipsConfigParser.read_configuration_file(CONFIG_INI)
             _LOGGER.debug(u"reading the config file {}".format(self.config))
             _LOGGER.debug(u"MQTT address is {}".format(MQTT_ADDR))
+
+            # set log level according to config.ini
+            if self.config["global"]["log_level"] == "DEBUG":
+                _LOGGER.setLevel(logging.DEBUG)
+
         except:
             self.config = None
             _LOGGER.error(u"not able to read config file!")
-
-        print(self.config)
-        print(self.config['secret']['language'])
-
 
         # get the API and Multilanguage Text handler class
         try:
@@ -90,6 +69,10 @@ class Swiss_Publictransport_app(object):
 
         # default origin is our home station from config
         self.origin = self.config["secret"]["home_station"]
+        # defualt transport and destination is empty
+        self.transport = ""
+        self.destinantion = ""
+
         # Parse the query slots
         for (slot_value, slot) in intent_message.slots.items():
             if slot_value == "transport_type":
@@ -119,9 +102,7 @@ class Swiss_Publictransport_app(object):
         except Exception as e:
             text_to_speak = unicode(str(e), "utf-8")
         # terminate the session first if not continue
-        hermes.publish_end_session(
-            intent_message.session_id, text_to_speak
-        )
+        hermes.publish_end_session(intent_message.session_id, text_to_speak)
 
     # ===train_schedule_from_to intent action =================================
     def train_schedule_from_to(self, hermes, intent_message):
@@ -140,9 +121,7 @@ class Swiss_Publictransport_app(object):
             text_to_speak = unicode(str(e), "utf-8")
 
         # terminate the session first if not continue
-        hermes.publish_end_session(
-            intent_message.session_id, text_to_speak
-        )
+        hermes.publish_end_session(intent_message.session_id, text_to_speak)
 
     # ===station_timetable intent action ======================================
     def station_timetable(self, hermes, intent_message):
@@ -161,9 +140,7 @@ class Swiss_Publictransport_app(object):
             text_to_speak = unicode(str(e), "utf-8")
 
         # terminate the session first if not continue
-        hermes.publish_end_session(
-            intent_message.session_id, text_to_speak
-        )
+        hermes.publish_end_session(intent_message.session_id, text_to_speak)
 
     # -------------------------------------------------------------------------
     # --> Master callback function, triggered everytime an intent is recognized

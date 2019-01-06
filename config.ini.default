@@ -1,4 +1,5 @@
 [global]
+log_level=ERROR
 
 [secret]
 home_station=Bern

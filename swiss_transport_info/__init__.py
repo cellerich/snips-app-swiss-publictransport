@@ -289,13 +289,13 @@ class _Data2TextML(object):
 
         """--------------TEXT TO BE SPOKEN --------------------------------------------
         Your next connection from _Davos Platz_ to _Lausanne_ leaves at 15:26. 
-        It has the number RE 1050 on Platform 1. 
+        It has the number RE 1050 on Platform 1
         The journey takes 4 hours and 50 minutes, you will arrive in Lausanne at 20:16.
         There are 4 transfers: 
         - in Klosters Platz - 15:57, number RE 1350 on platform 2
-        - in Landquart - 16:49, number IC 3 on platform 3.
+        - in Landquart - 16:49, number IC 3 on platform 3
         - in Zürich HB - 18:02, number IC 8 on platform 31
-        - in in Bern - 19:04 number IR 15 on platform 3.
+        - in in Bern - 19:04 number IR 15 on platform 3
         ----------------------------------------------------------------------------"""
 
         # we just use the first entry in list
@@ -326,7 +326,7 @@ class _Data2TextML(object):
             )
             sentence = unicode(t_frag_1, "utf-8").format(**data)
 
-            t_frag_2 = self._("It has the number {first_transport} {platform}") + ". "
+            t_frag_2 = self._("It has the number {first_transport} {platform}") + "; "
             sentence += unicode(t_frag_2, "utf-8").format(**data)
 
             t_frag_3 = (
@@ -342,7 +342,7 @@ class _Data2TextML(object):
                 sentence += unicode(t_frag_4, "utf-8").format(**data)
 
                 t_frag_loop = (
-                    self._("- in {station}: {departure}, {transport} {platform}") + ". "
+                    self._("- in {station}: {departure}, {transport} {platform}") + "; "
                 )
 
                 # add all the transfer data
