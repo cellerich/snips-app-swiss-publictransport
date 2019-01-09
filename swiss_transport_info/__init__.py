@@ -127,6 +127,25 @@ class SwissTransportInfo(object):
                 + "."
             )
 
+        if from_station == "":
+            return self._(
+                "Sorry! I did not recognize the origin station you mentioned"
+            ) + "! " + self._(
+                "Please try again with a more specific station name"
+            ) + "."
+        if to_station == "":
+            return self._(
+                "Sorry! I did not recognize the destinantion station you mentioned"
+            ) + "! " + self._(
+                "Please try again with a more specific station name"
+            ) + "."
+        if from_station == to_station:
+            return self._(
+                "Sorry! Origin and destination can not be the same station"
+            ) + "! " + self._(
+                "Please try again with different station names"
+            ) + "."
+
         try:
             return dtml.get_connection_text(
                 odta.get_connections(from_station, to_station, connections)

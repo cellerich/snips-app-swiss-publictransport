@@ -43,12 +43,13 @@ class Swiss_Publictransport_app(object):
         # get the configuration if needed
         try:
             self.config = SnipsConfigParser.read_configuration_file(CONFIG_INI)
-            _LOGGER.debug(u"reading the config file {}".format(self.config))
-            _LOGGER.debug(u"MQTT address is {}".format(MQTT_ADDR))
 
             # set log level according to config.ini
             if self.config["global"]["log_level"] == "DEBUG":
                 _LOGGER.setLevel(logging.DEBUG)
+
+            _LOGGER.debug(u"reading the config file {}".format(self.config))
+            _LOGGER.debug(u"MQTT address is {}".format(MQTT_ADDR))
 
         except:
             self.config = None
@@ -68,21 +69,23 @@ class Swiss_Publictransport_app(object):
         """
 
         # default origin is our home station from config
-        self.origin = self.config["secret"]["home_station"]
+        self.origin = self.config["secret"]["home_station"].encode("utf8")
         # defualt transport and destination is empty
-        self.transport = ""
-        self.destinantion = ""
+        self.transport = u""
+        self.destinantion = u""
 
         # Parse the query slots
         for (slot_value, slot) in intent_message.slots.items():
+            print (slot_value)
+            print (slot.first().value.encode("utf8"))
             if slot_value == "transport_type":
-                self.transport = slot[0].slot_value.value.value.encode("utf8")
+                self.transport = slot.first().value.encode("utf8")
             if slot_value == "from_station":
-                self.origin = slot[0].slot_value.value.value.encode("utf8")
+                self.origin = slot.first().value.encode("utf8")
             if slot_value == "to_station":
-                self.destinantion = slot[0].slot_value.value.value.encode("utf8")
+                self.destinantion = slot.first().value.encode("utf8")
 
-        _LOGGER.debug(u"[Slots] type: {}, from: {}, to: {}".format(
+        _LOGGER.debug("[Slots] type: {}, from: {}, to: {}".format(
             self.transport, self.origin, self.destinantion
         ))
 
