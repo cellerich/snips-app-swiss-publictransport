@@ -7,7 +7,7 @@ https://www.cellerich.ch
 Licensed under MIT. All rights reserved.
 """
 
-import urllib as urlp
+#import urllib as urlp
 import requests
 
 import json
@@ -38,7 +38,7 @@ class SwissTransportInfo(object):
         if language in _LANGUAGES:
             self.language = language
         else:
-            _LOGGER.error('Language "{}" is not available.'.format(language))
+            _LOGGER.error('[__init__] - Language "{}" is not available.'.format(language))
             raise exceptions.SwissTransportInfoError(
                 self._('Language "{}" is not available').format(language) + "."
             )
@@ -49,11 +49,11 @@ class SwissTransportInfo(object):
                 lang = gettext.translation(
                     "snips", localedir="./locale", languages=[language]
                 )
-                lang.install()
+                lang.install(unicode=1)
                 self._ = lang.gettext
 
             except Exception as e:
-                _LOGGER.error(u"Cannot load the wanted language: {}".format(e))
+                _LOGGER.error("[__init__] - Cannot load the wanted language: {}".format(e))
                 raise exceptions.Data2TextMLTranslationError(e)
 
     def get_station_board(self, station_name, connections=4, departure_time=None):
@@ -71,7 +71,7 @@ class SwissTransportInfo(object):
         except exceptions.Data2TextMLTranslationError as e:
             raise exceptions.SwissTransportInfoError(
                 self._(
-                    "Sorry, I cannot load the translations for the language {}"
+                    u"Sorry, I cannot load the translations for the language {}"
                 ).format(language)
                 + "."
             )
@@ -83,24 +83,24 @@ class SwissTransportInfo(object):
         except exceptions.Data2TextMLConcatenateError:
             raise exceptions.SwissTransportInfoError(
                 self._(
-                    "Sorry! I received some invalid data, please try again with another station"
+                    u"Sorry! I received some invalid data, please try again with another station"
                 )
                 + "."
             )
         except exceptions.OpendataTransportConnectionError as e:
             raise exceptions.SwissTransportInfoError(
                 self._(
-                    "Sorry! I dont have a connection to the Swiss Transport Infos at the moment"
+                    u"Sorry! I dont have a connection to the Swiss Transport Infos at the moment"
                 )
                 + ". "
-                + self._("Please try again later")
+                + self._(u"Please try again later")
                 + "."
             )
         except exceptions.OpendataTransportParseError as e:
             raise exceptions.SwissTransportInfoError(
-                self._("Sorry! I have trouble understanding the data I received")
+                self._(u"Sorry! I have trouble understanding the data I received")
                 + "."
-                + self._("You might have a talk with the programmer of this App")
+                + self._(u"You might have a talk with the programmer of this App")
                 + "!"
             )
 
@@ -122,28 +122,28 @@ class SwissTransportInfo(object):
         except exceptions.Data2TextMLTranslationError as e:
             raise exceptions.SwissTransportInfoError(
                 self._(
-                    "Sorry, I cannot load the translations for the language {}"
+                    u"Sorry, I cannot load the translations for the language {}"
                 ).format(language)
                 + "."
             )
 
         if from_station == "":
             return self._(
-                "Sorry! I did not recognize the origin station you mentioned"
+                u"Sorry! I did not recognize the origin station you mentioned"
             ) + "! " + self._(
-                "Please try again with a more specific station name"
+                u"Please try again with a more specific station name"
             ) + "."
         if to_station == "":
             return self._(
-                "Sorry! I did not recognize the destinantion station you mentioned"
+                u"Sorry! I did not recognize the destinantion station you mentioned"
             ) + "! " + self._(
-                "Please try again with a more specific station name"
+                u"Please try again with a more specific station name"
             ) + "."
         if from_station == to_station:
             return self._(
-                "Sorry! Origin and destination can not be the same station"
+                u"Sorry! Origin and destination can not be the same station"
             ) + "! " + self._(
-                "Please try again with different station names"
+                u"Please try again with different station names"
             ) + "."
 
         try:
@@ -153,24 +153,24 @@ class SwissTransportInfo(object):
         except exceptions.Data2TextMLConcatenateError as e:
             raise exceptions.SwissTransportInfoError(
                 self._(
-                    "Sorry! I received some invalid data, please try again with another station"
+                    u"Sorry! I received some invalid data, please try again with another station"
                 )
                 + "."
             )
         except exceptions.OpendataTransportConnectionError as e:
             raise exceptions.SwissTransportInfoError(
                 self._(
-                    "Sorry! I dont have a connection to the Swiss Transport Infos at the moment"
+                    u"Sorry! I dont have a connection to the Swiss Transport Infos at the moment"
                 )
                 + ". "
-                + self._("Please try again later")
+                + self._(u"Please try again later")
                 + "."
             )
         except exceptions.OpendataTransportParseError as e:
             raise exceptions.SwissTransportInfoError(
-                self._("Sorry! I have trouble understanding the data I received")
+                self._(u"Sorry! I have trouble understanding the data I received")
                 + "."
-                + self._("You might have a talk with the programmer of this App")
+                + self._(u"You might have a talk with the programmer of this App")
                 + "!"
             )
 
@@ -217,12 +217,12 @@ class _Data2TextML(object):
         Keyword arguments:
         duration        -- string in the form "00d01:38:00"
         """
-        duration_format = self._("%H hours %M minutes")
+        duration_format = self._(u"%H hours %M minutes")
         return datetime.strptime(duration, "%fd%H:%M:%S").strftime(duration_format)
 
     def _get_platform_string(self, platform):
         """Returns the platform if available or an empty string"""
-        platform_format = self._("on platform {}")
+        platform_format = self._(u"on platform {}")
         if platform == None:
             return ""
         else:
@@ -259,9 +259,9 @@ class _Data2TextML(object):
                 + ". "
                 + self._("There are {stops} stops before the final destination")
                 + ". "
-            )
+            ).decode("utf-8")
 
-            sentence = unicode(t_frag_1, "utf-8").format(**sb_data[0])
+            sentence = t_frag_1.format(**sb_data[0])
 
             sentence += self._("Other connections are") + ": "
 
@@ -270,9 +270,8 @@ class _Data2TextML(object):
                     "{transport} towards {destination} leaving {departure} {platform} with {stops} stops"
                 )
                 + "; "
-            )
-
-            sentence += unicode(t_frag_2, "utf-8").format(**sb_data[1])
+            ).decode("utf-8")
+            sentence += t_frag_2.format(**sb_data[1])
 
             t_frag_3 = (
                 self._(
@@ -281,22 +280,25 @@ class _Data2TextML(object):
                 + " "
                 + self._("and")
                 + " "
-            )
-            sentence += unicode(t_frag_3, "utf-8").format(**sb_data[2])
+            ).decode("utf-8")
+            sentence += t_frag_3.format(**sb_data[2])
 
             t_frag_4 = (
                 self._(
                     "{transport} towards {destination} leaving {departure} {platform} with {stops} stops"
                 )
                 + "."
-            )
-            sentence += unicode(t_frag_4, "utf-8").format(**sb_data[3])
+            ).decode("utf-8")
+            sentence += t_frag_4.format(**sb_data[3])
 
-            _LOGGER.debug(u"[Sentence] {}".format(sentence))
+            print(sentence)
+            print(type(sentence))
+
+            _LOGGER.debug("[get_stationboard_text] - sentence: {}".format(sentence.encode('utf8', 'replace')))
             return sentence
 
         except Exception as e:
-            _LOGGER.error(u"Can not concatenate the input data: {}".format(e))
+            _LOGGER.error("[get_stationboard_text] - Can not concatenate the input data: {}".format(e))
             raise exceptions.Data2TextMLConcatenateError(e)
 
     def get_connection_text(self, cn_data):
@@ -329,10 +331,7 @@ class _Data2TextML(object):
                 transfer["platform"] = self._get_platform_string(transfer["platform"])
                 transfer["departure"] = self._get_time_string(transfer["departure"])
 
-            _LOGGER.debug(u"[Reformatted Data] {}".format(data))
-
         except Exception as e:
-            _LOGGER.error(u"Error reformatting data: {}".format(e))
             raise exceptions.Data2TextMLConcatenateError(e)
 
         # try to concatenate the output data we need
@@ -342,37 +341,42 @@ class _Data2TextML(object):
             t_frag_1 = (
                 self._("Your next connection from {from} to {to} leaves at {departure}")
                 + ". "
-            )
-            sentence = unicode(t_frag_1, "utf-8").format(**data)
+            ).decode("utf-8")
+            sentence = t_frag_1.format(**data)
 
-            t_frag_2 = self._("It has the number {first_transport} {platform}") + "; "
-            sentence += unicode(t_frag_2, "utf-8").format(**data)
+            t_frag_2 = (
+                self._("It has the number {first_transport} {platform}")
+                + "; "
+            ).decode("utf-8")
+            sentence += t_frag_2.format(**data)
 
             t_frag_3 = (
-                self._(
-                    "The journey takes {duration}, you will arrive in {to} at {arrival}"
-                )
+                self._("The journey takes {duration}, you will arrive in {to} at {arrival}")
                 + ". "
-            )
-            sentence += unicode(t_frag_3, "utf-8").format(**data)
+            ).decode("utf-8")
+            sentence += t_frag_3.format(**data)
 
             if data["transfer_count"] > 0:
-                t_frag_4 = self._("There are {transfer_count} transfers") + ": "
-                sentence += unicode(t_frag_4, "utf-8").format(**data)
+                t_frag_4 = (
+                    self._(u"There are {transfer_count} transfers") 
+                    + ": "
+                ).decode("utf-8")
+                sentence += t_frag_4.format(**data)
 
                 t_frag_loop = (
-                    self._("- in {station}: {departure}, {transport} {platform}") + "; "
-                )
+                    self._(u"- in {station}: {departure}, {transport} {platform}")
+                    + "; "
+                ).decode("utf-8")
 
                 # add all the transfer data
                 for transfer in data["transfers"][1:]:
-                    sentence += unicode(t_frag_loop, "utf-8").format(**transfer)
+                    sentence += t_frag_loop.format(**transfer)
 
-            _LOGGER.debug(u"[Sentence] {}".format(sentence))
+            _LOGGER.debug("[get_connection_text] - Sentence: {}".format(sentence.encode('utf8', 'replace')))
             return sentence
 
         except Exception as e:
-            _LOGGER.error(u"Can not concatenate the input data: {}".format(data))
+            _LOGGER.error("[get_connection_text] - Can not concatenate the input data: {}".format(data))
             raise exceptions.Data2TextMLConcatenateError(e)
 
 
@@ -412,19 +416,17 @@ class _OpendataTransport(object):
                 "limit": entries,
                 "datetime": departure_time.isoformat(),
             }
-        url = _RESOURCE + "stationboard?" + urlp.urlencode(query)
+        url = _RESOURCE + "stationboard"
 
         # try to load the data from transport opendata api
         try:
-            result = requests.get(url)
-            #sb = result.json()
-            
+            result = requests.get(url, params=query)
             sb = json.loads(result.content.decode('utf-8'))
             _LOGGER.debug(
-                u"Response from transport.opendata.ch: {}".format(result.status_code)
+                "[get_stationboard] - Response from transport.opendata.ch: {}".format(result.status_code)
             )
         except Exception as e:
-            _LOGGER.error(u"Can not load data from transport.opendata.ch: {}".format(e))
+            _LOGGER.error("[get_stationboard] - Can not load data from transport.opendata.ch: {}".format(e))
             raise exceptions.OpendataTransportConnectionError(e)
 
         # try to parse the data we need
@@ -442,14 +444,14 @@ class _OpendataTransport(object):
                 connection["stops"] = len(connect["passList"]) - 1
                 connections.append(connection)
 
-            _LOGGER.debug(u"Parsed stationboard: {}".format(connections))
+            _LOGGER.debug("[get_stationboard] - Parsed stationboard: {}".format(connections))
 
             # sometimes we get more entries from the api, we just return the number asked for
             return connections[0:entries]
 
         except Exception as e:
             _LOGGER.error(
-                "Can not parse the data from transport.opendata.ch: {}".format(e)
+                "[get_stationboard] - Can not parse the data from transport.opendata.ch: {}".format(e)
             )
             raise exceptions.OpendataTransportParseError(e)
 
@@ -471,17 +473,17 @@ class _OpendataTransport(object):
                 "limit": entries,
                 "datetime": departure_time.isoformat(),
             }
-        url = _RESOURCE + "connections?" + urlp.urlencode(query)
+        url = _RESOURCE + "connections"
 
         # try to load the data from transport opendata api
         try:
-            result = requests.get(url)
-            tt = result.json()
+            result = requests.get(url, params=query)
+            tt = json.loads(result.content.decode('utf-8'))
             _LOGGER.debug(
-                u"Response from transport.opendata.ch: {}".format(result.status_code)
+                "[get_connections] - Response from transport.opendata.ch: {}".format(result.status_code)
             )
         except Exception as e:
-            _LOGGER.error(u"Can not load data from transport.opendata.ch: {}".format(e))
+            _LOGGER.error("[get_connections] - Can not load data from transport.opendata.ch: {}".format(e))
             raise exceptions.OpendataTransportConnectionError(e)
 
         # try to parse the data we need
@@ -523,13 +525,13 @@ class _OpendataTransport(object):
                         connection["arrival"] = section["arrival"]["arrival"]
                 connections.append(connection)
 
-            _LOGGER.debug(u"Parsed connections: {}".format(connections))
+            _LOGGER.debug("[get_connections] - Parsed connections: {}".format(connections))
 
             # sometimes we get more entries from the api, we just return the number asked for
             return connections[0:entries]
 
         except Exception as e:
             _LOGGER.error(
-                "Can not parse the data from transport.opendata.ch: {}".format(e)
+                "[get_connections] - Can not parse the data from transport.opendata.ch: {}".format(e)
             )
             raise exceptions.OpendataTransportParseError(e)

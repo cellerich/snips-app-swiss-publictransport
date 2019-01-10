@@ -48,12 +48,12 @@ class Swiss_Publictransport_app(object):
             if self.config["global"]["log_level"] == "DEBUG":
                 _LOGGER.setLevel(logging.DEBUG)
 
-            _LOGGER.debug(u"reading the config file {}".format(self.config))
-            _LOGGER.debug(u"MQTT address is {}".format(MQTT_ADDR))
+            _LOGGER.debug(u"[__init__] - reading the config file {}".format(self.config))
+            _LOGGER.debug(u"[__init__] - MQTT address is {}".format(MQTT_ADDR))
 
         except:
             self.config = None
-            _LOGGER.error(u"not able to read config file!")
+            _LOGGER.error(u"[__init__] - not able to read config file!")
 
         # get the API and Multilanguage Text handler class
         try:
@@ -85,7 +85,7 @@ class Swiss_Publictransport_app(object):
             if slot_value == "to_station":
                 self.destinantion = slot.first().value.encode("utf8")
 
-        _LOGGER.debug("[Slots] type: {}, from: {}, to: {}".format(
+        _LOGGER.debug("[_parse_slots] type: {}, from: {}, to: {}".format(
             self.transport, self.origin, self.destinantion
         ))
 
@@ -146,7 +146,7 @@ class Swiss_Publictransport_app(object):
 
     def master_intent_callback(self, hermes, intent_message):
         coming_intent = intent_message.intent.intent_name
-        _LOGGER.debug(u"[Intent] {}".format(coming_intent))
+        _LOGGER.debug(u"[master_intent_callback] - Intent: {}".format(coming_intent))
         if coming_intent == "cellerich:train_schedule_to":
             self.train_schedule_to(hermes, intent_message)
         if coming_intent == "cellerich:train_schedule_from_to":
