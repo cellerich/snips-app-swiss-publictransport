@@ -76,8 +76,6 @@ class Swiss_Publictransport_app(object):
 
         # Parse the query slots
         for (slot_value, slot) in intent_message.slots.items():
-            print (slot_value)
-            print (slot.first().value.encode("utf8"))
             if slot_value == "transport_type":
                 self.transport = slot.first().value.encode("utf8")
             if slot_value == "from_station":

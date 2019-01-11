@@ -291,9 +291,6 @@ class _Data2TextML(object):
             ).decode("utf-8")
             sentence += t_frag_4.format(**sb_data[3])
 
-            print(sentence)
-            print(type(sentence))
-
             _LOGGER.debug("[get_stationboard_text] - sentence: {}".format(sentence.encode('utf8', 'replace')))
             return sentence
 

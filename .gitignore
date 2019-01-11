@@ -1,4 +1,4 @@
 *.json
 .vscode
-__pychache__/*
+__pycache__/*
 *.txt
